@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Environmental Engineering</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand">🌱 EnvEng Portal</a>
+            <ul class="navbar-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="courses.html">Courses</a></li>
+                <li><a href="faculty.html">Faculty</a></li>
+                <li><a href="research.html">Research</a></li>
+                <li><a href="admissions.html">Admissions</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="notices.html">Notices</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="form-container">
+        <h2>Login to Portal</h2>
+        <form id="login-form">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" required>
+            </div>
+            <button type="submit" class="btn">Login</button>
+            <p style="margin-top: 1rem;">Don't have an account? <a href="signup.html">Sign up here</a></p>
+            <p style="margin-top: 0.5rem; font-size: 0.875rem;">Demo Admin: admin@environmental.edu / admin123</p>
+        </form>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Environmental Engineering Department. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            try {
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    // Redirect based on role
+                    switch(data.user.role) {
+                        case 'student':
+                            window.location.href = 'student.html';
+                            break;
+                        case 'staff':
+                            window.location.href = 'staff.html';
+                            break;
+                        case 'admin':
+                            window.location.href = 'admin.html';
+                            break;
+                        default:
+                            window.location.href = 'index.html';
+                    }
+                } else {
+                    alert(data.error || 'Login failed');
+                }
+            } catch (error) {
+                alert('Error connecting to server');
+            }
+        });
+    </script>
+</body>
+</html>

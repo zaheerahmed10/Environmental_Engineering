@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Environmental Engineering</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand">🌱 EnvEng Portal</a>
+            <ul class="navbar-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="courses.html">Courses</a></li>
+                <li><a href="faculty.html">Faculty</a></li>
+                <li><a href="research.html">Research</a></li>
+                <li><a href="admissions.html">Admissions</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="notices.html">Notices</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Contact Us</h1>
+        
+        <div class="card-grid">
+            <div class="card">
+                <h3>📍 Address</h3>
+                <p>Department of Environmental Engineering<br>
+                University of Environmental Sciences<br>
+                123 Green Campus Drive<br>
+                Eco City, EC 12345</p>
+            </div>
+            
+            <div class="card">
+                <h3>📞 Phone Numbers</h3>
+                <p>Main Office: (555) 123-4567<br>
+                Admissions: (555) 123-4568<br>
+                Student Affairs: (555) 123-4569<br>
+                Fax: (555) 123-4570</p>
+            </div>
+            
+            <div class="card">
+                <h3>📧 Email Addresses</h3>
+                <p>General Inquiries: info@environmental.edu<br>
+                Admissions: admissions@environmental.edu<br>
+                Student Support: students@environmental.edu<br>
+                Research: research@environmental.edu</p>
+            </div>
+            
+            <div class="card">
+                <h3>🕒 Office Hours</h3>
+                <p>Monday - Friday: 9:00 AM - 5:00 PM<br>
+                Saturday: 10:00 AM - 2:00 PM<br>
+                Sunday: Closed</p>
+            </div>
+        </div>
+        
+        <div class="card" style="margin-top: 1rem;">
+            <h3>Send us a Message</h3>
+            <form id="contact-form">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Environmental Engineering Department. All rights reserved.</p>
+    </footer>
+
+    <script src="app.js"></script>
+    <script>
+        document.getElementById('contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            showAlert('Thank you for your message! We will get back to you soon.', 'success');
+            e.target.reset();
+        });
+    </script>
+</body>
+</html>

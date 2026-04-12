@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Environmental Engineering</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .gallery-item {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            text-align: center;
+            padding: 1rem;
+        }
+        
+        .gallery-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        
+        .gallery-item h3 {
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+        }
+        
+        .gallery-item p {
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand">🌱 EnvEng Portal</a>
+            <ul class="navbar-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="courses.html">Courses</a></li>
+                <li><a href="faculty.html">Faculty</a></li>
+                <li><a href="research.html">Research</a></li>
+                <li><a href="admissions.html">Admissions</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="notices.html">Notices</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Campus Gallery</h1>
+        
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <div class="gallery-icon">🏛️</div>
+                <h3>Main Building</h3>
+                <p>Department of Environmental Engineering</p>
+            </div>
+            
+            <div class="gallery-item">
+                <div class="gallery-icon">🔬</div>
+                <h3>Research Labs</h3>
+                <p>State-of-the-art environmental testing facilities</p>
+            </div>
+            
+            <div class="gallery-item">
+                <div class="gallery-icon">💧</div>
+                <h3>Water Treatment Plant</h3>
+                <p>Pilot scale treatment facility</p>
+            </div>
+            
+            <div class="gallery-item">
+                <div class="gallery-icon">🌿</div>
+                <h3>Green Campus</h3>
+                <p>Sustainable landscaping and gardens</p>
+            </div>
+            
+            <div class="gallery-item">
+               

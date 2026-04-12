@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - Environmental Engineering</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand">🌱 EnvEng Portal</a>
+            <ul class="navbar-menu">
+                <li><a href="#" onclick="logout()">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="dashboard-header">
+            <h1>Student Dashboard</h1>
+            <div class="user-info" id="user-info">
+                <span id="user-name"></span>
+                <span class="user-role" id="user-role"></span>
+            </div>
+        </div>
+
+        <div class="card-grid">
+            <div class="card">
+                <h3>📚 My Courses</h3>
+                <div id="courses-list"></div>
+            </div>
+            
+            <div class="card">
+                <h3>📢 Latest Notices</h3>
+                <div id="notices-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Environmental Engineering Department. All rights reserved.</p>
+    </footer>
+
+    <script src="app.js"></script>
+    <script>
+        async function loadDashboard() {
+            try {
+                // Check authentication
+                const user = await checkAuth();
+                if (!user) {
+                    window.location.href = 'login.html';
+                    return;
+                }
+                
+                document.getElementById('user-name').textContent = `Welcome, ${user.name}`;
+                document.getElementById('user-role').textContent = user.role;
+                
+                // Load courses
+                await loadCourses('courses-list');
+                
+                // Load notices
+                await loadNotices('notices-list');
+            } catch (error) {
+                console.error('Error loading dashboard:', error);
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', loadDashboard);
+    </script>
+</body>
+</html>

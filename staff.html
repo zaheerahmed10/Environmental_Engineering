@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Dashboard - Environmental Engineering</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand">🌱 EnvEng Portal</a>
+            <ul class="navbar-menu">
+                <li><a href="#" onclick="logout()">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="dashboard-header">
+            <h1>Staff Dashboard</h1>
+            <div class="user-info" id="user-info">
+                <span id="user-name"></span>
+                <span class="user-role" id="user-role"></span>
+            </div>
+        </div>
+
+        <div class="card-grid">
+            <div class="card">
+                <h3>📚 Manage Courses</h3>
+                <div id="courses-list"></div>
+            </div>
+            
+            <div class="card">
+                <h3>📢 Update Course Notes</h3>
+                <form id="update-notes-form">
+                    <div class="form-group">
+                        <label for="course-select">Select Course</label>
+                        <select id="course-select" required></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="notes">Notes/Materials</label>
+                        <textarea id="notes" rows="4" placeholder="Enter course notes or materials..."></textarea>
+                    </div>
+                    <button type="submit" class="btn">Update Notes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Environmental Engineering Department. All rights reserved.</p>
+    </footer>
+
+    <script src="app.js"></script>
+    <script>
+        let courses = [];
+        
+        async function loadDashboard() {
+            try {
+                const user = await checkAuth();
+                if (!user || (user.role !== 'staff' && user.role !== 'admin')) {
+                    window.location.href = 'login.html';
+                    return;
+                }
+                
+                document.getElementById('user-name').textContent = `Welcome, ${user.name}`;
+                document.getElementById('user-role').textContent = user.role;
+                
+                // Load courses
+                await loadCoursesForStaff();
+            } catch (error) {
+                console.error('Error loading dashboard:', error);
+            }
+        }
+        
+        async function loadCoursesForStaff() {
+            try {
+                const response = await fetch('/api/courses');
+                courses = await response.json();
+                
+                const coursesList = document.getElementById('courses-list');
+                coursesList.innerHTML = courses.map(course => `
+                    <div class="notice-card">
+                        <strong>${escapeHtml(course.code)}: ${escapeHtml(course.name)}</strong>
+                        <p>Instructor: ${escapeHtml(course.instructor)}</p>
+                        <p>Current Notes: ${course.notes ? escapeHtml(course.notes) : 'No notes uploaded'}</p>
+                    </div>
+                `).join('');
+                
+                const courseSelect = document.getElementById('course-select');
+                courseSelect.innerHTML = courses.map(course => 
+                    `<option value="${course.id}">${course.code} - ${course.name}</option>`
+                ).join('');
+            } catch (error) {
+                console.error('Error loading courses:', error);
+            }
+        }
+        
+        document.getElementById('update-notes-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const courseId = document.getElementById('course-select').value;
+            const notes = document.getElementById('notes').value;
+            
+            try {
+                const response = await fetch(`/api/courses/${courseId}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ notes })
+                });
+                
+                if (response.ok) {
+                    showAlert('Course notes updated successfully!', 'success');
+                    await loadCoursesForStaff();
+                    document.getElementById('notes').value = '';
+                } else {
+                    showAlert('Failed to update notes', 'error');
+                }
+            } catch (error) {
+                showAlert('Error updating notes', 'error');
+            }
+        });
+        
+        document.addEventListener('DOMContentLoaded', loadDashboard);
+    </script>
+</body>
+</html>
